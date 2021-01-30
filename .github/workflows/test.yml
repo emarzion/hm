@@ -38,15 +38,23 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+      - name: create makefile
+        run: coq-makefile -f _CoqProject -o Makefile 
       - uses: actions/checkout@v2
       - uses: coq-community/docker-coq-action@v1
         # See https://github.com/coq-community/docker-coq-action#readme
         # for details on docker-coq-action's syntax and provided features.
         with:
-          opam_file: ${{ matrix.opam_file }}
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
+          
+      - name: build
+        run: make
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
+
+
+
 
 
 # Remarks:
