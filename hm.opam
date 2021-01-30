@@ -1,0 +1,28 @@
+opam-version: "2.0"
+maintainer: "emarzion@gmail.com"
+version: "dev"
+
+homepage: "https://github.com/emarzion/hm"
+dev-repo: "git+https://github.com/emarzion/hm.git"
+bug-reports: "https://github.com/emarzion/hm/issues"
+license: "GPL"
+
+synopsis: "Definitional interpreter for HM"
+description: """
+etc.
+"""
+
+build: [
+  ["sh" "-c" "coq_makefile -f _CoqProject -o Makefile"]
+  [make "-j%{jobs}%"]
+]
+install: [make "install"]
+
+depends: [
+  "ocaml" {>= "4.05.0"}
+  "coq" {(>= "8.6") | (= "dev")}
+]
+
+authors: [
+  "Evan Marzion"
+]
