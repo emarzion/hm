@@ -38,8 +38,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job.
     steps:
-      - name: create makefile
-        run: coq-makefile -f _CoqProject -o Makefile 
+
       - uses: actions/checkout@v2
       - uses: coq-community/docker-coq-action@v1
         # See https://github.com/coq-community/docker-coq-action#readme
@@ -47,7 +46,10 @@ jobs:
         with:
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
-          
+
+      - name: create makefile
+        run: coq-makefile -f _CoqProject -o Makefile 
+
       - name: build
         run: make
 
