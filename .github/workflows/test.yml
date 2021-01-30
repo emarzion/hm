@@ -28,10 +28,8 @@ jobs:
         # to get the list of supported (coq, ocaml) versions in coqorg/coq.
         coq_version:
           - '8.13'
-          - 'dev'
         ocaml_version:
           - '4.07-flambda'
-          - '4.11-flambda'
       # at most 20 concurrent jobs per free account:
       # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#usage-limits
       max-parallel: 4
@@ -50,35 +48,6 @@ jobs:
           coq_version: ${{ matrix.coq_version }}
           ocaml_version: ${{ matrix.ocaml_version }}
 
-  mathcomp:
-    # The type of runner that the job will run on;
-    # the OS must be GNU/Linux to be able to use the docker-coq-action.
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        # Browse URL: https://hub.docker.com/r/mathcomp/mathcomp#supported-tags
-        # to get the list of supported tags in mathcomp/mathcomp
-        image:
-          - mathcomp/mathcomp:1.12.0-coq-8.12
-          - mathcomp/mathcomp:1.12.0-coq-8.13
-          # - mathcomp/mathcomp:latest-coq-dev
-          - mathcomp/mathcomp-dev:coq-dev
-      # at most 20 concurrent jobs per free account:
-      # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#usage-limits
-      max-parallel: 4
-      # don't cancel all in-progress jobs if one matrix job fails:
-      fail-fast: false
-
-    # Steps represent a sequence of tasks that will be executed as part of the job.
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it.
-      - uses: actions/checkout@v2
-      - uses: coq-community/docker-coq-action@v1
-        # See https://github.com/coq-community/docker-coq-action#readme
-        # for details on docker-coq-action's syntax and provided features.
-        with:
-          opam_file: './coq-demo.opam'
-          custom_image: ${{ matrix.image }}
 
 # Remarks:
 #
