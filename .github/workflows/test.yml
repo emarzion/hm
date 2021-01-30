@@ -7,8 +7,6 @@ name: Docker CI
 # or all pull request events:
 on:
   push:
-    branches:
-      - master
   pull_request:
     branches:
       - '**'
